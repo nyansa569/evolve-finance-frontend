@@ -1,0 +1,21 @@
+.splashscreen {
+  background-color: #1a212a;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.splashscreen__logo {
+  width: 30vw;
+  height: 25vh;
+  background-image: url("../../assets/pngg 1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.splashscreen h1{
+    color: white;
+    font-size: 4rem;
+}

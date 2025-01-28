@@ -1,8 +1,17 @@
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import React from 'react'
-import { useForm } from 'react-hook-form';
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import "./auth.css";
+import React from "react";
+import { useForm } from "react-hook-form";
+import logo from "../../assets/pngg 1.png"; 
 
 function SigninPage() {
   const form = useForm({
@@ -11,83 +20,58 @@ function SigninPage() {
     },
   });
   return (
-    <div className='w-full'>
-      <section className='w-[80%] mx-auto'>
-        <h2 className='font-semibold text-2xl'>Login</h2>
+    <div className="signin-container">
+      <section className="inner-signin">
+        <h2 className="sign-heading">Login</h2>
         <Form {...form}>
-              <form className='w-[400px] py-8 space-y-4'>
-                  <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                          <FormItem
-                              className='flex-1'
-                          >
-                              <FormLabel>Your Name</FormLabel>
-                              <div className='bg-white'>
-                                  <FormControl>
-                                      <Input
-                                          placeholder="Email" {...field} 
-                                          className='w-full'
-                                      />
-                                  </FormControl>
-                              </div>
-                              <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                  <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                          <FormItem
-                              className='flex-1'
-                          >
-                              <FormLabel>Email</FormLabel>
-                              <div className='bg-white'>
-                                  <FormControl>
-                                      <Input
-                                          placeholder="Email" {...field} 
-                                          className='w-full'
-                                      />
-                                  </FormControl>
-                              </div>
-                              <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                  <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                          <FormItem
-                              className='flex-1'
-                          >
-                              <FormLabel>Password</FormLabel>
-                              <div className='bg-white'>
-                                  <FormControl>
-                                      <Input
-                                          placeholder="Password" {...field} 
-                                          className='w-full'
-                                      />
-                                  </FormControl>
-                              </div>
-                              <FormMessage />
-                          </FormItem>
-                      )}
-                  />
+          <form className="sign-form">
+          <img src={logo} alt="Logo" className="logo-image" style={{position:"absolute", opacity:"0.1"}}/>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="form-input">
+                  <FormLabel className="form-label">Email</FormLabel>
+                  <div className="">
+                    <FormControl>
+                      <Input
+                        placeholder="email"
+                        {...field}
+                        className="signinput"
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="form-input">
+                  <FormLabel className="form-label">Password</FormLabel>
+                  <div className="">
+                    <FormControl>
+                      <Input
+                        placeholder="password"
+                        {...field}
+                        className="signinput"
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <p className="forgotten-pass">forgotten password?</p>
 
-                  <Button
-                      variant="primary"
-                      className='w-full py-6'
-                  >
-                      Sign in
-                  </Button>
-              </form>
-          </Form>
+            <Button className="sign-button">sign in</Button>
+          </form>
+        </Form>
       </section>
     </div>
-  )
+  );
 }
 
-export default SigninPage
+export default SigninPage;

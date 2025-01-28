@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -15,6 +15,9 @@ import NotFound from './pages/not-found'
 import EmailVerification from './pages/auth/verify-email'
 import ForgotPasswordPage from './pages/auth/forgot-password'
 import PasswordReset from './pages/auth/password-reset'
+import SplashScreen from './pages/splashscreen/splashscreen'
+import OTPscreen from './pages/auth/otp'
+import PasswordChangeSuccess from './pages/auth/password_change_successful'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +32,8 @@ const router = createBrowserRouter(
       <Route path="/verify-email" element={<EmailVerification />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/password-reset" element={<PasswordReset />} />
+      <Route path="/otp-verification" element={<OTPscreen />} />
+      <Route path="/password-change-success" element={<PasswordChangeSuccess />} />
 
       <Route path="/app/*" element={<Layout />}>
         <Route index element={<DashboardPage />} />
@@ -84,7 +89,14 @@ const router = createBrowserRouter(
 )
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+  // return <RouterProvider router={router} />;
+  return isLoading ? <SplashScreen onFinish={() => setIsLoading(false)} /> : <RouterProvider router={router} />;
+
 }
 
 export default App;

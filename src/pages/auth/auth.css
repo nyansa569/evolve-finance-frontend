@@ -1,0 +1,76 @@
+.signin-container {
+  background-color: #1A212A;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-form{
+    width: 650px;
+    height: 27rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inner-signin{
+    color: white;
+}
+
+.form-input{
+    height: 6rem;
+}
+
+.signinput{
+    padding: 1.5rem;
+    border-radius: 30px;
+    border: 1px solid #D9C368;
+    color: #CACACA;
+    font-weight: 200;
+}
+
+.sign-heading{
+    margin-bottom: 2rem;
+}
+
+.form-label{
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.forgotten-pass{
+    font-size: 0.5rem;
+}
+
+.sign-button{
+    width: 100%;
+    background-color: transparent;
+    color:  #CACACA;
+    font-weight: 200;
+    border: 1px solid #D9C368;
+    border-radius: 30px;
+    margin-top: 1rem;
+    padding: 1.5rem;
+}
+
+.user-names{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nameinput{
+    width: 30vw;
+}
+
+.terms-conditions{
+    margin-top: 1.5rem;
+}
+
+.pass-text{
+    font-size: 0.9rem;
+    font-weight: 100;
+    text-align: right;
+}
