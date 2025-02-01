@@ -7,38 +7,41 @@
   align-items: center;
 }
 
-.sign-form{
-    width: 650px;
+/* .sign-form{
+    width: 850px;
     height: 27rem;
-    padding: 1rem;
+    padding-left: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+} */
 
 .inner-signin{
     color: white;
 }
 
-.form-input{
-    height: 6rem;
-}
 
 .signinput{
-    padding: 1.5rem;
-    border-radius: 30px;
+    padding: 1.3rem;
+    border-radius: 35px;
     border: 1px solid #D9C368;
     color: #CACACA;
     font-weight: 200;
+    z-index: 99;
+    background-color: transparent;
+    outline: none;
 }
 
-.sign-heading{
-    margin-bottom: 2rem;
+.nameinput{
+    width: 17rem;
 }
+
+
 
 .form-label{
     font-weight: 300;
     font-size: 1rem;
+    margin: 0.5rem;
 }
 
 .forgotten-pass{
@@ -52,18 +55,23 @@
     font-weight: 200;
     border: 1px solid #D9C368;
     border-radius: 30px;
-    margin-top: 1rem;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .user-names{
     display: flex;
     justify-content: space-between;
+    width: 100%;
+}
+.user-name{
+    display: flex;
+    flex-direction: column;
+}
+.label-signin{
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
 }
 
-.nameinput{
-    width: 30vw;
-}
 
 .terms-conditions{
     margin-top: 1.5rem;
@@ -73,4 +81,15 @@
     font-size: 0.9rem;
     font-weight: 100;
     text-align: right;
+}
+
+
+.error-message{
+    color: red;
+}
+
+
+.form-input{
+    display: flex;
+    flex-direction: column;
 }

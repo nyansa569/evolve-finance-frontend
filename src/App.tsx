@@ -22,7 +22,7 @@ import PasswordChangeSuccess from './pages/auth/password_change_successful'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<ErrorPage redirectTo="/" />}>
-      <Route path={"/*"} element={<LobbyLayout />}>
+      <Route path={"/*"} element={<SigninPage />}>
         <Route index element={<HomePage />} />
         <Route path="home" element={<HomePage />} /> 
       </Route>
