@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 
 const shellVariants = cva(
   "lg:grid flex flex-col lg:items-center overflow-x-hidden px-4 gap-8 pb-8 pt-6 md:py-8",

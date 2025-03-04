@@ -2,28 +2,35 @@ import "./auth.css";
 import { useState } from "react";
 import logo from "../../assets/pngg 1.png";
 import { Link } from "react-router-dom";
-import { createUser } from "../services/user_services"; // Import the createUser service function
+import { requestOTP, sendOTPMessage } from "../../services/user_services"; // Import the createUser service function
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
   const [errorMessage, setErrorMessage] = useState(""); // To capture and display errors
   const [name, setName] = useState("");
   const [sName, setsName] = useState("");
   const [contact, setContact] = useState("");
+  const [loading, setLoaging] = useState(false); // To capture and display errors
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmitForm = async (e: React.FormEvent) => {
-    e.preventDefault();
+      setLoaging(true);
+      e.preventDefault();
     const form = {
       name: name + " " + sName,
       contact,
       email,
       password,
-      role: "Customer",
+      companyName,
+      role: "CustomerAdmin",
     };
-    console.log(form);
+
+    // console.log(form);
 
     const passwordRegex = /^(?=.*[0-9]).{8,}$/;
 
@@ -40,12 +47,35 @@ function SignupPage() {
       return;
     }
     try {
-      const response = await createUser(form);
-      console.log("User created successfully:", response);
+      const response_otp = await requestOTP({ email });
+      const mail_form = {
+        email,
+        otp: response_otp.data.otp,
+        name: name + " " + sName,
+        messageType: "signup",
+      };
+      const response_mail = await sendOTPMessage(mail_form); // Call the login service
+      const userDataToStore = {
+        ...form,
+        otp: response_otp.data.otp,
+        otpType: "signup",
+      };
+
+      // 🔹 Navigate to the next page after success
+      localStorage.setItem("userData", JSON.stringify(userDataToStore));
+      setTimeout(() => {
+        navigate("/otp-verification");
+      }, 2000); // 2 seconds delay before navigating
+
+      // const response = await createUser(form);
+      // console.log("User created successfully:", response_otp);
+      // console.log("Mail sent successfully:", response_mail);
       setErrorMessage("");
+      setLoaging(false);
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
       setErrorMessage(error.message || "Failed to create user.");
+      setLoaging(false);
     }
   };
 
@@ -129,9 +159,20 @@ function SignupPage() {
             Email
           </label>
           <input
+            type="email"
             placeholder="email"
             className="signinput"
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label htmlFor="" className="label-signin">
+            Company Name
+          </label>
+          <input
+            type="text"
+            placeholder="company name"
+            className="signinput"
+            onChange={(e) => setCompanyName(e.target.value)}
             required
           />
           <label htmlFor="" className="label-signin">
@@ -189,7 +230,16 @@ function SignupPage() {
               fontSize: "1.2rem",
             }}
           >
-            Sign up
+             {loading ? (
+              <div
+                className="loader"
+                style={{
+                  margin: "auto",
+                }}
+              ></div>
+            ) : (
+              "Sign in"
+            )}
           </button>
 
           {/* Login Redirect */}

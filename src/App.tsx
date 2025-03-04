@@ -1,102 +1,116 @@
-import { useState,useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
-import ErrorPage from './pages/error'
-import LobbyLayout from './pages/lobby/layout'
-import HomePage from './pages/lobby/pages/home'
-import SigninPage from './pages/auth/signin'
-import SignupPage from './pages/auth/signup'
-import Layout from './pages/dashboard/layout'
-import DashboardPage from './pages/dashboard/pages/dashboard'
-import { routes } from './routes'
-import NotFound from './pages/not-found'
-import EmailVerification from './pages/auth/verify-email'
-import ForgotPasswordPage from './pages/auth/forgot-password'
-import PasswordReset from './pages/auth/password-reset'
-import SplashScreen from './pages/splashscreen/splashscreen'
-import OTPscreen from './pages/auth/otp'
-import PasswordChangeSuccess from './pages/auth/password_change_successful'
+import { ReactNode } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import ErrorPage from "./pages/error";
+import SigninPage from "./pages/auth/signin";
+import SignupPage from "./pages/auth/signup";
+import NotFound from "./pages/not-found";
+import EmailVerification from "./pages/auth/verify-email";
+import ForgotPasswordPage from "./pages/auth/forgot-password";
+import PasswordReset from "./pages/auth/password-reset";
+import OTPscreen from "./pages/auth/otp";
+import PasswordChangeSuccess from "./pages/auth/password_change_successful";
+import { routes } from "./routes";
+import Layout from "./pages/layout";
+import DashboardPage from "./pages/dashboard";
+import { AuthProvider, useAuth } from "./pages/auth/authprovider";
+import "./App.css"
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route errorElement={<ErrorPage redirectTo="/" />}>
-      <Route path={"/*"} element={<SigninPage />}>
-        <Route index element={<HomePage />} />
-        <Route path="home" element={<HomePage />} /> 
-      </Route>
+const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated, isPublicRoute } = useAuth();
+  const location = useLocation();
 
-      <Route path="/signin" element={<SigninPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/verify-email" element={<EmailVerification />} />
-      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/password-reset" element={<PasswordReset />} />
-      <Route path="/otp-verification" element={<OTPscreen />} />
-      <Route path="/password-change-success" element={<PasswordChangeSuccess />} />
+  if (isAuthenticated && isPublicRoute(location.pathname)) {
+    return <Navigate to="/app/" replace />;
+  }
 
-      <Route path="/app/*" element={<Layout />}>
-        <Route index element={<DashboardPage />} />
-        {routes.map((route) => (
-          <Route
-            key={route.path}
-            errorElement={<ErrorPage redirectTo="/app/home" />}
-          >
-            <Route path={route.path} element={<route.component />}>
-              {route.children?.map((childRoute, i) => (
-                <Route
-                  key={childRoute.path + i.toString()}
-                  path={childRoute.path}
-                  element={<childRoute.component />}
-                >
-                  {childRoute.children?.map((subChildRoute, j) => (
-                    <Route
-                      key={subChildRoute.path + j.toString()}
-                      path={subChildRoute.path}
-                      element={<subChildRoute.component />}
-                    />
-                  ))}
-                </Route>
-              ))}
-            </Route>
-
-            {(route.subRoutes ?? []).map((subRoute) => (
-              <Route key={subRoute.path}>
-                <Route path={subRoute.path} element={<subRoute.component />} />
-
-                {(subRoute.children ?? []).map((childRoute) => (
-                  <Route
-                    key={childRoute.path}
-                    path={childRoute.path}
-                    element={<childRoute.component />}
-                  />
-                ))}
-              </Route>
-            ))}
-          </Route>
-        ))}
-
-        <Route path="*" element={<NotFound redirectTo="/app/home" />} />
-      </Route>
-
-      <Route
-        path="*"
-        element={<NotFound containerClassName="h-dvh" redirectTo="/" />}
-      />
-    </Route>,
-  ),
-
-)
+  return <>{children}</>;
+};
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
-  // return <RouterProvider router={router} />;
-  return isLoading ? <SplashScreen onFinish={() => setIsLoading(false)} /> : <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <Routes>
+        {/* Protected Routes */}
+        <Route path="/" element={<Navigate to="/app/" replace />} />
+        <Route path="/app/*" element={<Layout />}>
+          <Route index element={<DashboardPage />} />
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.component />}
+            >
+              {route.children?.map((childRoute) => (
+                <Route
+                  key={childRoute.path}
+                  path={childRoute.path}
+                  element={<childRoute.component />}
+                />
+              ))}
+            </Route>
+          ))}
+        </Route>
 
+        {/* Public authentication routes */}
+        <Route
+          path="/signin"
+          element={
+            <PublicRoute>
+              <SigninPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <SignupPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/verify-email"
+          element={
+            <PublicRoute>
+              <EmailVerification />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <PublicRoute>
+              <ForgotPasswordPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/password-reset"
+          element={
+            <PublicRoute>
+              <PasswordReset />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/otp-verification"
+          element={
+            <PublicRoute>
+              <OTPscreen />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/password-change-success"
+          element={<PasswordChangeSuccess />}
+        />
+
+        {/* Error handling & Not Found */}
+        <Route path="/error" element={<ErrorPage redirectTo="/app/home" />} />
+        <Route path="*" element={<NotFound redirectTo="/signin" />} />
+      </Routes>
+    </AuthProvider>
+  );
 }
 
 export default App;

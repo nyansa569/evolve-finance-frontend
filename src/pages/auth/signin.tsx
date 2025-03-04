@@ -3,10 +3,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/pngg 1.png";
 import { Link } from "react-router-dom";
-import { loginUser } from "../services/user_services"; // Import login service function
+import {
+  loginUser,
+  requestOTP,
+  sendOTPMessage,
+} from "../../services/user_services"; // Import login service function
+import { useNavigate } from "react-router-dom";
 
 function SigninPage() {
   const [errorMessage, setErrorMessage] = useState(""); // To capture and display errors
+  const [loading, setLoaging] = useState(false); // To capture and display errors
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
       email: "",
@@ -20,17 +27,44 @@ function SigninPage() {
     const formData = {
       email: form.getValues("email"),
       password: form.getValues("password"),
-      role: "Customer",
+      role: "CustomerAdmin",
     };
-    console.log(formData);
+    // console.log(formData);
 
     try {
-      const response = await loginUser(formData); // Call the login service
-      console.log("User logged in successfully:", response);
+      setLoaging(true);
+      const response_login = await loginUser(formData); // Call the login service
+      const response_otp = await requestOTP({ email: formData.email }); // Call the login service
+      // const response_mail = await requestOTP(); // Call the login service
+      // console.log("OTP generated successfully:", response_login);
+      // console.log("OTP generated successfully:", response_otp);
+      const mail_form = {
+        email: response_login.user.email,
+        otp: response_otp.data.otp,
+        name: response_login.user.name,
+        messageType: "signin",
+      };
+      const response_mail = await sendOTPMessage(mail_form); // Call the login service
+      // console.log("OTP sent successfully:", response_mail);
+      const userDataToStore = {
+        ...mail_form,
+        ...formData,
+        otpType: "signin",
+      };
+      // console.log("Response login",response_login)
+      // localStorage.setItem("token", response_login.token);
+
+      localStorage.setItem("userData", JSON.stringify(userDataToStore));
+      // console.log("OTP sent to user successfully:", response_mail);
+      setTimeout(() => {
+        navigate("/otp-verification");
+      }, 2000); // 2 seconds delay before navigating
       setErrorMessage("");
+      setLoaging(false);
     } catch (error: any) {
-      console.log(error.message);
-      setErrorMessage(error.message || "Failed to log in.");
+      // console.log(error.message);
+      setLoaging(false);
+      setErrorMessage("Failed to log in.");
     }
   };
 
@@ -39,7 +73,7 @@ function SigninPage() {
       <section
         className="inner-signin"
         style={{
-          height: "40vh",
+          height: "50vh",
           width: "42vw",
           padding: "1rem",
           position: "relative",
@@ -102,19 +136,23 @@ function SigninPage() {
           {errorMessage && (
             <p
               className="error-message"
-              style={{ color: "red", marginTop: "10px" }}
+              style={{ color: "red", marginTop: "10px", textAlign: "center" }}
             >
               {errorMessage}
             </p>
           )}
-          <p
+          <Link
+            to={"/forgot-password"}
             className="forgotten-pass"
             style={{
               margin: "10px 0",
+              fontSize: "1rem",
+              cursor: "pointer",
+              zIndex: "90090",
             }}
           >
             Forgotten password?
-          </p>
+          </Link>
           {/* Sign Up Button */}
 
           <button
@@ -125,7 +163,16 @@ function SigninPage() {
               zIndex: "99",
             }}
           >
-            Sign in
+            {loading ? (
+              <div
+                className="loader"
+                style={{
+                  margin: "auto",
+                }}
+              ></div>
+            ) : (
+              "Sign in"
+            )}
           </button>
 
           <p style={{ textAlign: "center", zIndex: "99" }}>

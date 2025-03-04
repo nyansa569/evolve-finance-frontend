@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  // FormControl,
+  // FormField,
+  // FormItem,
+  // FormLabel,
+  // FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import "./auth.css";
-import React from "react";
+// import React from "react";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/pngg 1.png";
 import iconSuccess from "../../assets/offline_pin.png";

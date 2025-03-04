@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 
 import Icons from "@/assets/svg";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center min-w-28 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -13,11 +13,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-white text-black hover:bg-white/90",
-        primary: "bg-primary-300 text-white hover:bg-primary-300/90",
+        primary: "bg-primary-300 text-secondary-500 hover:bg-primary-300/90",
         secondary: "bg-secondary-300 text-white hover:bg-secondary-300/80",
         accent: "bg-accent-300 text-white hover:bg-accent-300/80",
-        outline: "border border-primary-100 text-primary-300 bg-background",
+        outline: "border border-accent-200 text-accent-100",
         link: "",
+        pagination: "min-w-0",
         ghost: "",
         destructive: "",
         table: "",

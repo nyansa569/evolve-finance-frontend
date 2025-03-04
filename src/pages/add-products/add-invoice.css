@@ -1,0 +1,238 @@
+/* Container */
+.add-invoice-container {
+    padding: 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid aliceblue;
+    color: white;
+  }
+  
+  /* Form Field */
+  .form-field {
+    margin-bottom: 16px;
+  }
+  
+  .form-field label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .form-field input[type="text"],
+  .form-field input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: transparent;
+  }
+  
+  .form-field input[type="text"]:focus,
+  .form-field input[type="number"]:focus {
+    border-color: #5b9bd5;
+    outline: none;
+  }
+  .qty-div{
+    display: flex;
+  }
+  
+  /* Button Styles */
+  .add-invoice-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-invoice-button:hover {
+    opacity: 0.8;
+  }
+  
+  .add-product-button {
+    background-color: #3498db;
+    padding: 0.5rem 1rem;
+    color: white;
+  }
+  
+  .add-product-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .create-invoice-button {
+    background-color: #2ecc71;
+    padding: 0.5rem 1rem;
+    color: white;
+  }
+  
+  .create-invoice-button:hover {
+    background-color: #27ae60;
+  }
+
+  .product-list-section{
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+  }
+  
+  /* Product List Section */
+  .product-list-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .product-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .product-list li {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  .inner-product{
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid aliceblue;
+    display: flex;
+  }
+  .inner-product-info{
+    margin-left: 1rem;
+    flex: 1;
+  }
+
+  .action-buttons{
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .qty-btn,
+  .action-buttons button{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 1px solid white;
+    font-size: 2rem;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .qty-btn{
+    width: 30px;
+    height: 25px;
+    font-size: 0.8rem;
+    margin: 0 1rem;
+  }
+  
+  .payment-method-dropdown{
+    background-color: transparent;
+  }
+  /* Modal for Searching Products */
+  .search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+  }
+  
+  .search-modal .modal-content {
+    background-color: darkblue;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-modal h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .search-modal input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    color: aliceblue;
+    margin-bottom: 16px;
+  }
+  
+  .search-modal ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .search-modal ul li {
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .search-modal ul li:hover {
+    background-color: #e1e1e1;
+  }
+  
+  .search-modal .close-modal-button {
+    margin-top: 16px;
+    background-color: #95a5a6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .search-modal .close-modal-button:hover {
+    background-color: #7f8c8d;
+  }
+
+  .modal-product-item{
+    display: flex;
+  }
+  .modal-product-item img{
+    margin-right: 1rem;
+  }
+
+  .modal-product-item-details{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  /* Spacing for fields */
+  .form-field-spacing {
+    margin-bottom: 16px;
+  }
+  
+  /* Hover effects */
+  .hover\:bg-gray-200:hover {
+    background-color: #ecf0f1;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .extras{
+    padding: 1rem;
+  }
