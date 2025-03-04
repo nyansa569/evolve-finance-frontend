@@ -6,7 +6,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
-  },
+  }, 
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@phosphor-icons/react": "^2.1.7",
