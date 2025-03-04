@@ -1,5 +1,5 @@
 {
-  "name": "evolvefinancial-frontend",
+  "name": "evolvefinancial_frontend",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
